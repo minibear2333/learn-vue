@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        // 填充变量
+        data() {
+            return {
+                inputValue: '',
+                list: []
+            }
+        },
+        methods: {
+            handleAddItem() {
+                this.list.push(this.inputValue)
+                this.inputValue = ''
+            }
+        },
+        // 页面模板
+        // v-bind:title="inputValue" 标签绑定数据
+        template: `
+        <div>
+            <input v-model="inputValue"></input>
+            <button v-on:click="handleAddItem"
+                    v-bind:title="inputValue">增加</button>
+        </div>
+        <ul>
+            <todo-item v-for="(item,index) of list"     
+                       v-bind:content="item"
+                       v-bind:index="index"/>
+        </ul>
+        `
+    });
+    // 组件应该包含样式，js，数据data()
+    app.component('todo-item', {
+        // 接收属性值，相当于参数
+        props: ['content', 'index'],
+        template: '<li>{{content}} -- {{index}}</li>'
+    });
+    // 要挂载的节点，注意有组件的方式需要最后挂载组件
+    app.mount('#root');
+</script>
+
+</html>

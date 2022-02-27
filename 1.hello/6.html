@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    Vue.createApp({
+        // 填充变量
+        data() {
+            return {
+                list: ['hello', 'world', 'dell', 'lee']
+            }
+        },
+        // 页面模板
+        template: `
+        <span>循环<span>
+        <ul>
+            <li v-for="item of list">{{item}}</li>
+        </ul>
+        <span>循环并打印下标<span>
+        <ul>
+            <li v-for="(item,index) of list">{{item}} {{index}}</li>
+        </ul>
+        `
+
+    }).mount('#root'); // 要挂载的节点
+</script>
+
+</html>

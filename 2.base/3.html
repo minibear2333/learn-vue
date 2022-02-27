@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.base</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 变量中的html不转义 -->
+        <div v-html="message"></div>
+        <div v-bind:title="message">hello</div>
+        <input v-bind:disabled="disable" />
+        <!-- 差值表达式中可以写js表达式 -->
+        <div>{{Math.max(1,2)}}</div>
+        <!-- 一次性执行渲染 -->
+        <div v-once>{{message}}</div>
+        <div v-if="show">{{message}}</div>
+        <!-- 简写形式 -->
+        <div @click="handleClick" :title="message">{{message}}</div>
+        <!-- 动态参数、动态属性、动态事件 -->
+        <div @[event]="handleClick" :[name]="message">
+            {{message}}
+        </div>
+        <!-- 阻止默认行为，并使用业务函数逻辑 -->
+        <form action="https://baidu.com" @click.prevent="handleClick">
+            <button type="submit">提交</button>
+        </form>
+    </div>
+</body>
+<script>
+    // createApp 表示创建一个vue应用，存储到 app 变量中
+    // 传入的参数表示 ，这个应用最外层的组件，应该如何展示
+    // mvvm 设计模式，m -> model 数据，v->view 视图, vm->viewModel视图数据连接层
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: '<strong>hello world</strong>',
+                disable: true,
+                show: false,
+                name: 'title',
+                event: 'mouseenter'
+            }
+        },
+        methods: {
+            handleClick() {
+                alert('click')
+            }
+        },
+    });
+    // vm 代表的就是 vue 应用的根组件
+    const vm = app.mount('#root');
+    // 可以 vm.$data.message='abc';
+</script>
+
+</html>

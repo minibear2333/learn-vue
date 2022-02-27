@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.base</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // createApp 表示创建一个vue应用，存储到 app 变量中
+    // 传入的参数表示，这个应用最外层的组件，应该如何展示
+    // mvvm 设计模式，m -> model 数据，v->view 视图, vm->viewModel视图数据连接层
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: 'hello world'
+            }
+        },
+        // after 事件，函数
+        // 在实例生成之前 会自动执行的函数
+        beforeCreate() {
+            console.log('beforeCreate')
+        },
+        // after 数据、模板、双向绑定
+        // 在实例生成之后 会自动执行的函数 
+        created() {
+            console.log('created')
+        },
+        // after template编译成函数
+        // 在组件内容被渲染到页面之前 会自动执行的函数
+        beforeMount() {
+            console.log('beforeMount')
+        },
+        // after vue对象 挂载到页面上
+        // 在组件内容被渲染到页面之后  会自动执行的函数
+        mounted() {
+            console.log('mounted')
+            this.message = 'abc' // 为了触发 beforeUpdated
+        },
+        // after  update data,but before update html
+        // 当 data 中的数据发生变化时执行的函数
+        beforeUpdate() {
+            console.log('beforeUpdated', document.getElementById('root').innerHTML)
+        },
+        // 当 data 中的数据发生变化，同时页面完成更新后，会自动执行的函数
+        updated() {
+            console.log('updated', document.getElementById('root').innerHTML)
+        },
+        // app.unmount()
+        // 当 Vue 应用失效时，自动执行的函数
+        beforeUnmount() {
+            console.log('beforeUnmount', document.getElementById('root').innerHTML)
+        },
+        // 当 Vue 应用失效时，且 dom 完全销毁之后，自动执行的函数
+        unmounted() {
+            console.log('unmounted', document.getElementById('root').innerHTML)
+        },
+        // 如果没有template则取 id='root' 的 dom 元素里作为template
+        template: '<div>{{message}}</div>'
+    });
+    // vm 代表的就是 vue 应用的根组件
+    const vm = app.mount('#root');
+    // 可以 vm.$data.message='abc';
+</script>
+
+</html>

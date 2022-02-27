@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    Vue.createApp({
+        // 填充变量
+        data() {
+            return {
+                inputValue: '',
+                list: []
+            }
+        },
+        methods: {
+            handleAddItem() {
+                this.list.push(this.inputValue)
+                this.inputValue = ''
+            }
+        },
+        // 页面模板
+        // v-bind:title="inputValue" 标签绑定数据
+        template: `
+        <div>
+            <input v-model="inputValue"></input>
+            <button v-on:click="handleAddItem"
+                    v-bind:title="inputValue">增加</button>
+        </div>
+        <ul>
+            <li v-for="(item,index) of list">{{item}}</li>
+        </ul>
+        `
+
+    }).mount('#root'); // 要挂载的节点
+</script>
+
+</html>
