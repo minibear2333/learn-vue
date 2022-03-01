@@ -17,12 +17,18 @@
     // 传入的参数表示 ，这个应用最外层的组件，应该如何展示
     // mvvm 设计模式，m -> model 数据，v->view 视图, vm->viewModel视图数据连接层
     const app = Vue.createApp({
-        data(){
+        data() {
             return {
                 message: 'hello world'
             }
         },
-        template: `<div>{{message}}</div>`
+        methods: {
+            formatString(string) {
+                return string.toUpperCase();
+            }
+        },
+        // 函数的用法，直接在差值表达式中使用
+        template: '<div>{{formatString(message)}}</div>'
     });
     // vm 代表的就是 vue 应用的根组件
     const vm = app.mount('#root');

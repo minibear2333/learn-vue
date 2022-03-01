@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.base</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // createApp 表示创建一个vue应用，存储到 app 变量中
+    // 传入的参数表示 ，这个应用最外层的组件，应该如何展示
+    // mvvm 设计模式，m -> model 数据，v->view 视图, vm->viewModel视图数据连接层
+    const app = Vue.createApp({
+        data() {
+            return {
+                classString: 'red',
+                classObject: { red: true, green: true },
+                classArray: ['red', { 'green': false }],
+                styleString: 'color:yellow;',
+                styleObject: {
+                    color: 'orange',
+                    background: 'yellow'
+                }
+            }
+        },
+        template: `
+        <div :class="classArray">
+            Hello World
+            <demo class="green"/>
+            <div :style="styleString">abc</div>
+            <div :style="styleObject">abc</div>
+        </div>`
+    });
+    app.component('demo', {
+        template: `
+            <div :class="$attrs.class">one</div>
+            <div :class="$attrs.class">two</div>
+            `
+    })
+    // vm 代表的就是 vue 应用的根组件
+    const vm = app.mount('#root');
+    // 可以 vm.$data.message='abc';
+</script>
+
+</html>

@@ -17,12 +17,26 @@
     // 传入的参数表示 ，这个应用最外层的组件，应该如何展示
     // mvvm 设计模式，m -> model 数据，v->view 视图, vm->viewModel视图数据连接层
     const app = Vue.createApp({
-        data(){
+        data() {
             return {
-                message: 'hello world'
+                price: 5,
             }
         },
-        template: `<div>{{message}}</div>`
+        watch: {
+            price(curr, prev) {
+                // 监听某个变量，变化时异步操作
+                // vm.price = 6
+                setTimeout(() => {
+                    console.log('price changed', prev, curr)
+                }, 3000)
+            }
+            // price(){
+            //     setTimeout(() =>{
+            //         console.log('price changed')
+            //     },3000)
+            // }
+        },
+        template: '<div>{{price}}</div>'
     });
     // vm 代表的就是 vue 应用的根组件
     const vm = app.mount('#root');

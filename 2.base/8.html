@@ -17,12 +17,23 @@
     // 传入的参数表示 ，这个应用最外层的组件，应该如何展示
     // mvvm 设计模式，m -> model 数据，v->view 视图, vm->viewModel视图数据连接层
     const app = Vue.createApp({
-        data(){
+        data() {
             return {
-                message: 'hello world'
+                show: false,
+                conditionOne: false,
+                conditionTwo: true,
             }
         },
-        template: `<div>{{message}}</div>`
+        // v-if 直接消失,从dom上移除
+        // v-show display:none; 性能更好一点
+        template: `
+        <div v-if="show">hi</div>
+        <div v-show="show">bye</div>
+
+        <div v-if="conditionOne">if</div>
+        <div v-else-if="conditionTwo">elseif</div>
+        <div v-else="show">else</div>
+         `
     });
     // vm 代表的就是 vue 应用的根组件
     const vm = app.mount('#root');

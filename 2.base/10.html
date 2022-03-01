@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.base</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root">
+        {{counter}}
+        <button @click="handleBtnClick1(2)">button</button>
+        <button @click="handleBtnClick1(2,$event)">button</button>
+        <button @click="handleBtnClick1(2,$event),handleBtnClick2()">button</button>
+        <!-- 事件冒泡 -->
+        <div @click="handleBtnClick1(2,$event)">
+            <button @click="handleBtnClick2">button</button>
+        </div>
+        <!-- 屏蔽事件冒泡  点就是事件修饰符 -->
+        <div @click="handleBtnClick1(2,$event)">
+            <button @click.stop="handleBtnClick2">button</button>
+        </div>
+        <!-- 仅自己触发时才触发事件 -->
+        <div @click.self="handleBtnClick1(2,$event)">
+            {{counter}}
+            <button @click="handleBtnClick2">button</button>
+        </div>
+        <!-- 事件修饰符 stop,prevent,capture,self,once,passive
+            .stop 屏蔽事件冒泡
+            .prevent 阻止默认行为 
+            .capture 按捕获模式，相当于反冒泡，用的比较少 
+            .once 事件绑定只执行一次
+            .passive 提升性能，以后再了解
+         -->
+    </div>
+</body>
+<script>
+    // createApp 表示创建一个vue应用，存储到 app 变量中
+    // 传入的参数表示 ，这个应用最外层的组件，应该如何展示
+    // mvvm 设计模式，m -> model 数据，v->view 视图, vm->viewModel视图数据连接层
+    const app = Vue.createApp({
+        data() {
+            return {
+                counter: 0
+            }
+        },
+        methods: {
+            handleBtnClick1(num, event) {
+                // target是事件的内容
+                console.log(event.target)
+                this.counter += num;
+                alert(1)
+            },
+            handleBtnClick2() {
+                this.counter += 2;
+                alert(2)
+            }
+        },
+    });
+    // vm 代表的就是 vue 应用的根组件
+    const vm = app.mount('#root');
+    // 可以 vm.$data.message='abc';
+</script>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.base</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div>
+            <input @keydown="handleKeyDown" />
+            <br />
+            <!-- 按键修饰符：enter,tab,delete,esc,up,down,left,right -->
+            <input @keydown.enter="handleKeyDownByEnter" />
+            <br />
+            <!-- 鼠标修饰符：left,right,middle -->
+            <input @click.right="handleClick" />
+            <!-- 精确修饰符：exact -->
+            <!-- exact: 精确的仅按住ctrl再鼠标点击才生效，如果没有exact的话只要按住ctrl和鼠标点击，同时任意按住其他按键也生效 -->
+            <input @click.ctrl.exact="handleClick" />
+        </div>
+    </div>
+</body>
+<script>
+    // createApp 表示创建一个vue应用，存储到 app 变量中
+    // 传入的参数表示 ，这个应用最外层的组件，应该如何展示
+    // mvvm 设计模式，m -> model 数据，v->view 视图, vm->viewModel视图数据连接层
+    const app = Vue.createApp({
+        methods: {
+            handleKeyDown() {
+                console.log('keydown')
+            },
+            handleKeyDownByEnter() {
+                console.log('handleKeyDownByEnter')
+            },
+            handleClick() {
+                console.log('handleClick')
+            }
+        },
+    });
+    // vm 代表的就是 vue 应用的根组件
+    const vm = app.mount('#root');
+    // 可以 vm.$data.message='abc';
+</script>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.base</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // createApp 表示创建一个vue应用，存储到 app 变量中
+    // 传入的参数表示 ，这个应用最外层的组件，应该如何展示
+    // mvvm 设计模式，m -> model 数据，v->view 视图, vm->viewModel视图数据连接层
+    const app = Vue.createApp({
+        data() {
+            return {
+                listArray: ['aaaa', 'bbbb', 'cccc'],
+                listObject: {
+                    firstName: 'aaa',
+                    lastName: 'bbb',
+                    job: 'ccc'
+                }
+            }
+        },
+        methods: {
+            handleAddBtnClick() {
+                // 1. 数组的变更函数 push pop unshift shift splice sort reverse
+                // 尾部增加
+                // this.listArray.push('hello')
+                // 尾部移除
+                // this.listArray.pop()
+                // 头部移除
+                // this.listArray.shift()
+                // 头部增加
+                // this.listArray.unshift('hello')
+                // 取反
+                // this.listArray.reverse('hello')
+                // 排序
+                // this.listArray.sort()
+                // 位置，删除几个，插入元素
+                // 0位置，删除0个，插入元素 ccc
+                // this.listArray.splice(0, 0, 'ccc')
+                // 0位置，删除1个，不插入元素
+                // this.listArray.splice(0, 1)
+
+                // 2. 直接替换数组
+                // this.listArray = ['bye', 'world']
+                // this.listArray = ['bye'].concat(['world'])
+                // this.listArray = ['bye'].filter(item => item === 'bye')
+
+                // 3. 直接更新数组内容
+                // this.listArray[1] = 'hello'
+
+                // 直接添加对象内容，也可以展示出来
+                this.listObject.age = 100
+                this.listObject.sex = 'male'
+            }
+        },
+        template: `
+        <div>
+            <div v-for="(item,index) in listArray" :key="index">
+                {{item}} -- {{index}}
+            </div>
+            <div v-for="(value,key,index) in listObject">
+                {{value}} -- {{key}} -- {{index}}
+            </div>
+            <div v-for="item in 10">
+                {{item}}
+            </div>
+            <template v-for="(value,key,index) in listObject">
+                <div v-if="key !== 'lastName'">
+                {{value}} -- {{key}} -- {{index}}
+                </div>
+            </template>
+            <button @click="handleAddBtnClick">新增</button>
+        </div>
+        `
+    });
+    // vm 代表的就是 vue 应用的根组件
+    const vm = app.mount('#root');
+    // 可以 vm.$data.message='abc';
+</script>
+
+</html>

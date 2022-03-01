@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.base</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // createApp 表示创建一个vue应用，存储到 app 变量中
+    // 传入的参数表示 ，这个应用最外层的组件，应该如何展示
+    // mvvm 设计模式，m -> model 数据，v->view 视图, vm->viewModel视图数据连接层
+    const app = Vue.createApp({
+        data() {
+            return {
+                count: 2,
+                price: 5,
+                message: 'hello',
+            }
+        },
+        computed: {
+            // 计算属性依赖的内容发生变更时才会重新计算
+            // 也就是下面的两个变量产生变化时才改变
+            // 所以不想修改其他地方时反复调用时使用
+            total() {
+                return Date.now() * this.price
+            }
+        },
+        methods: {
+            // 内部依赖变化时会变化
+            // 页面重新渲染，也会重新计算
+            // 所以需要任何地方变化时刷新使用，我认为一般没有这种场景
+            getTotal() {
+                return Date.now() * this.price
+            }
+        },
+        // 函数的用法，直接在差值表达式中使用
+        template: `
+        <div>{{message}} {{total}}</div>
+        <div>{{getTotal()}}</div>
+        `
+    });
+    // vm 代表的就是 vue 应用的根组件
+    const vm = app.mount('#root');
+    // 可以 vm.$data.message='abc';
+</script>
+
+</html>
