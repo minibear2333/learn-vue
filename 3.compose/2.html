@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 命名方式：全局组件使用 xx-xx 的方式，组件内部使用 驼峰 的方式
+    // 因为全局要使用app.component的方式注册，局部则是定义变量的方式
+    const HelloWorld = {
+        data() {
+            return {
+                count: 1
+            }
+        },
+        template: `<div @click="count += 1">{{count}}</div>`
+    }
+    // 组件的定义
+    // 组件的复用性
+    // 全局组件，只要定义了处处可以使用，性能不高，但是使用起来简单
+    const app = Vue.createApp({
+        // 局部组件的使用方式，不用的时候就是一个变量，性能好，但是要注册了才能使用
+        components: { HelloWorld },
+        template: `
+        <div>
+            <hello-world/>
+            <HelloWorld/>
+        </div>`
+    });
+
+    const vm = app.mount('#root');
+</script>
+
+</html>
