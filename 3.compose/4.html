@@ -13,27 +13,24 @@
     <div id="root"></div>
 </body>
 <script>
-    // 组件的定义
-    // 组件的复用性
-    // 全局组件，只要定义了处处可以使用，性能不高，但是使用起来简单
     const app = Vue.createApp({
-        template: `
-        <div>
-            <counter-parent/>
-            <counter/>
-        </div>`
-    });
-    app.component('counter', {
         data() {
             return {
-                count: 1
+                params: {
+                    content: 3,
+                    a: 223,
+                    b: 333,
+                }
             }
         },
-        template: `<div @click="count += 1">{{count}}</div>`
+        template: `
+        <div>
+            <test v-bind="params" />
+        </div>`
     });
-    // 组件包含组件
-    app.component('counter-parent', {
-        template: `<counter/>`
+    app.component('test', {
+        props: ['content', 'a', 'b'],
+        template: `<div>{{content}}</div>`
     });
     const vm = app.mount('#root');
 </script>
