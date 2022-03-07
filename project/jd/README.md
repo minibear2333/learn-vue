@@ -1,8 +1,10 @@
 # jd
 
 ## Project setup
+
+自动抹平不同浏览器的样式差异
 ```
-npm install
+npm install normalize.css --save
 ```
 
 ### Compiles and hot-reloads for development
